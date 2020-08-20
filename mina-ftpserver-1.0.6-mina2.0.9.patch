@@ -1,0 +1,41 @@
+diff -Nru apache-ftpserver-1.0.6/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java apache-ftpserver-1.0.6.mina/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java
+--- apache-ftpserver-1.0.6/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java	2011-06-25 22:48:23.000000000 +0200
++++ apache-ftpserver-1.0.6.mina/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java	2015-09-28 11:55:31.616329607 +0200
+@@ -37,6 +37,7 @@
+ import org.apache.ftpserver.ftplet.Structure;
+ import org.apache.ftpserver.ftplet.User;
+ import org.apache.ftpserver.listener.Listener;
++import org.apache.mina.core.filterchain.IoFilter;
+ import org.apache.mina.core.filterchain.IoFilterChain;
+ import org.apache.mina.core.future.CloseFuture;
+ import org.apache.mina.core.future.ReadFuture;
+@@ -876,4 +877,18 @@
+ 	public void updateThroughput(long currentTime, boolean force) {
+ 		wrappedSession.updateThroughput(currentTime, force);
+ 	}
++
++	public boolean isSecured() {
++		// If the session does not have a SslFilter, we can return false
++		IoFilterChain chain = getFilterChain();
++
++		IoFilter sslFilter = chain.get(SslFilter.class);
++
++		if (sslFilter != null) {
++			// Get the SslHandler from the SslFilter
++			return ((SslFilter)sslFilter).isSslStarted(this);
++		} else {
++			return false;
++		}
++	}
+ }
+diff -Nru apache-ftpserver-1.0.6/core/src/main/java/org/apache/ftpserver/listener/nio/FtpHandlerAdapter.java apache-ftpserver-1.0.6.mina/core/src/main/java/org/apache/ftpserver/listener/nio/FtpHandlerAdapter.java
+--- apache-ftpserver-1.0.6/core/src/main/java/org/apache/ftpserver/listener/nio/FtpHandlerAdapter.java	2011-06-25 22:48:22.000000000 +0200
++++ apache-ftpserver-1.0.6.mina/core/src/main/java/org/apache/ftpserver/listener/nio/FtpHandlerAdapter.java	2015-09-28 11:55:45.981530183 +0200
+@@ -99,4 +99,7 @@
+ 
+     }
+ 
++    public void inputClosed(IoSession session) throws Exception {
++        session.close(true);
++    }
+ }
