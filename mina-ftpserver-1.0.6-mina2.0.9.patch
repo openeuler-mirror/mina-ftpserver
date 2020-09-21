@@ -1,7 +1,16 @@
-diff -Nru apache-ftpserver-1.0.6/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java apache-ftpserver-1.0.6.mina/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java
---- apache-ftpserver-1.0.6/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java	2011-06-25 22:48:23.000000000 +0200
-+++ apache-ftpserver-1.0.6.mina/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java	2015-09-28 11:55:31.616329607 +0200
-@@ -37,6 +37,7 @@
+From 4c28da4d8a8d84823854b2cf19a22f692fad43e9 Mon Sep 17 00:00:00 2001
+Date: Mon, 21 Sep 2020 20:55:58 +0800
+
+---
+ .../org/apache/ftpserver/impl/FtpIoSession.java   | 15 +++++++++++++++
+ .../ftpserver/listener/nio/FtpHandlerAdapter.java |  3 +++
+ 2 files changed, 18 insertions(+)
+
+diff --git a/src/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java b/src/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java
+index 9f79c3a..4b8ae06 100644
+--- a/src/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java
++++ b/src/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java
+@@ -37,6 +37,7 @@ import org.apache.ftpserver.ftplet.FtpSession;
  import org.apache.ftpserver.ftplet.Structure;
  import org.apache.ftpserver.ftplet.User;
  import org.apache.ftpserver.listener.Listener;
@@ -9,7 +18,7 @@ diff -Nru apache-ftpserver-1.0.6/core/src/main/java/org/apache/ftpserver/impl/Ft
  import org.apache.mina.core.filterchain.IoFilterChain;
  import org.apache.mina.core.future.CloseFuture;
  import org.apache.mina.core.future.ReadFuture;
-@@ -876,4 +877,18 @@
+@@ -876,4 +877,18 @@ public class FtpIoSession implements IoSession {
  	public void updateThroughput(long currentTime, boolean force) {
  		wrappedSession.updateThroughput(currentTime, force);
  	}
@@ -28,10 +37,11 @@ diff -Nru apache-ftpserver-1.0.6/core/src/main/java/org/apache/ftpserver/impl/Ft
 +		}
 +	}
  }
-diff -Nru apache-ftpserver-1.0.6/core/src/main/java/org/apache/ftpserver/listener/nio/FtpHandlerAdapter.java apache-ftpserver-1.0.6.mina/core/src/main/java/org/apache/ftpserver/listener/nio/FtpHandlerAdapter.java
---- apache-ftpserver-1.0.6/core/src/main/java/org/apache/ftpserver/listener/nio/FtpHandlerAdapter.java	2011-06-25 22:48:22.000000000 +0200
-+++ apache-ftpserver-1.0.6.mina/core/src/main/java/org/apache/ftpserver/listener/nio/FtpHandlerAdapter.java	2015-09-28 11:55:45.981530183 +0200
-@@ -99,4 +99,7 @@
+diff --git a/src/core/src/main/java/org/apache/ftpserver/listener/nio/FtpHandlerAdapter.java b/src/core/src/main/java/org/apache/ftpserver/listener/nio/FtpHandlerAdapter.java
+index 5899784..776a78e 100644
+--- a/src/core/src/main/java/org/apache/ftpserver/listener/nio/FtpHandlerAdapter.java
++++ b/src/core/src/main/java/org/apache/ftpserver/listener/nio/FtpHandlerAdapter.java
+@@ -99,4 +99,7 @@ public class FtpHandlerAdapter implements IoHandler {
  
      }
  
@@ -39,3 +49,6 @@ diff -Nru apache-ftpserver-1.0.6/core/src/main/java/org/apache/ftpserver/listene
 +        session.close(true);
 +    }
  }
+-- 
+2.23.0
+

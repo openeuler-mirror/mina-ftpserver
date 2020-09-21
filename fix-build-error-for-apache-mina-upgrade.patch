@@ -1,0 +1,49 @@
+From 3493bb746c97ed9a1b122060c577da68ad70fc0e Mon Sep 17 00:00:00 2001
+Subject: [PATCH] fix build errors for apache-mina upgrade
+
+---
+ .../apache/ftpserver/impl/FtpIoSession.java   | 21 +++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/src/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java b/src/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java
+index 4b8ae06..dee60ca 100644
+--- a/src/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java
++++ b/src/core/src/main/java/org/apache/ftpserver/impl/FtpIoSession.java
+@@ -138,6 +138,21 @@ public class FtpIoSession implements IoSession {
+ 		return wrappedSession.close(immediately);
+ 	}
+ 
++	/**
++	 * @see IoSession#closeNow()
++	 */
++	public CloseFuture closeNow()
++	{
++		return wrappedSession.closeNow();
++	}
++
++	/**
++	 * @see IoSession#closeOnFlush()
++	 */
++	public CloseFuture closeOnFlush()
++	{
++		return wrappedSession.closeOnFlush();
++	}
+ 	/**
+ 	 * @see IoSession#containsAttribute(Object)
+ 	 */
+@@ -422,6 +437,12 @@ public class FtpIoSession implements IoSession {
+ 		return wrappedSession.isConnected();
+ 	}
+ 
++	/**
++	 * @see IoSession#isActive()
++	 */
++	public boolean isActive() {
++		return wrappedSession.isActive();
++	}
+ 	/**
+ 	 * @see IoSession#isIdle(IdleStatus)
+ 	 */
+-- 
+2.23.0
+
