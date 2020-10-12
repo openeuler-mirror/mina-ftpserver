@@ -1,11 +1,12 @@
 Name:                mina-ftpserver
 Version:             1.0.6
-Release:             1
+Release:             2
 Summary:             A 100% pure Java FTP server
 License:             ASL 2.0
 URL:                 http://mina.apache.org/ftpserver-project/
 Source0:             https://archive.apache.org/dist/mina/ftpserver/%{version}/ftpserver-%{version}-src.tar.gz
 Patch0:              mina-ftpserver-1.0.6-mina2.0.9.patch
+Patch1:              fix-build-error-for-apache-mina-upgrade.patch
 
 BuildRequires:       maven-local mvn(commons-codec:commons-codec) mvn(commons-net:commons-net)
 BuildRequires:       mvn(hsqldb:hsqldb:1) mvn(junit:junit) mvn(log4j:log4j:1.2.17)
@@ -51,12 +52,14 @@ This package contains javadoc for %{name}.
 
 %prep
 %setup -q -n apache-ftpserver-%{version}
-mv src/* .
 find . -name "*.bat" -delete
 find . -name "*.class" -delete
 find . -name "*.exe" -delete
 find . -name "*.jar" -delete
 %patch0 -p1
+%patch1 -p1
+mv src/* ./
+
 %pom_disable_module distribution
 %pom_disable_module ftpserver-example-spring-war examples
 %pom_remove_plugin :maven-source-plugin
@@ -104,5 +107,8 @@ rm core/src/test/java/org/apache/ftpserver/impl/DefaultFtpServerTest.java  \
 %license LICENSE NOTICE
 
 %changelog
+* Mon 21 Sep 2020 wangyue <wangyue92@huawei.com> - 1.0.6-2
+- Fix build errors for apache-mina upgrade
+
 * Tue Jul 28 2020 leiju <leiju4@huawei.com> - 1.0.6-1
 - Package init
