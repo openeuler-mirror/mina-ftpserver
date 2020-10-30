@@ -1,6 +1,6 @@
 Name:                mina-ftpserver
 Version:             1.0.6
-Release:             2
+Release:             3
 Summary:             A 100% pure Java FTP server
 License:             ASL 2.0
 URL:                 http://mina.apache.org/ftpserver-project/
@@ -107,6 +107,9 @@ rm core/src/test/java/org/apache/ftpserver/impl/DefaultFtpServerTest.java  \
 %license LICENSE NOTICE
 
 %changelog
+* Wed 28 Oct 2020 wangyue <baizhonggui@huawei.com> - 1.0.6-3
+- Remove spring-context-support dep
+
 * Mon 21 Sep 2020 wangyue <wangyue92@huawei.com> - 1.0.6-2
 - Fix build errors for apache-mina upgrade
 
