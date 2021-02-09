@@ -1,6 +1,6 @@
 Name:                mina-ftpserver
 Version:             1.0.6
-Release:             3
+Release:             4
 Summary:             A 100% pure Java FTP server
 License:             ASL 2.0
 URL:                 http://mina.apache.org/ftpserver-project/
@@ -16,7 +16,6 @@ BuildRequires:       mvn(org.apache.mina:mina-core) mvn(org.osgi:org.osgi.core)
 BuildRequires:       mvn(org.slf4j:jcl-over-slf4j) mvn(org.slf4j:slf4j-api)
 BuildRequires:       mvn(org.slf4j:slf4j-log4j12) mvn(org.springframework:spring-beans)
 BuildRequires:       mvn(org.springframework:spring-context)
-BuildRequires:       mvn(org.springframework:spring-context-support)
 BuildArch:           noarch
 
 %description
@@ -107,7 +106,10 @@ rm core/src/test/java/org/apache/ftpserver/impl/DefaultFtpServerTest.java  \
 %license LICENSE NOTICE
 
 %changelog
-* Wed 28 Oct 2020 wangyue <baizhonggui@huawei.com> - 1.0.6-3
+* Tue 9 Feb 2021 baizhonggui <baizhonggui@huawei.com> - 1.0.6-4
+- Remove unused model
+
+* Wed 28 Oct 2020 baizhonggui <baizhonggui@huawei.com> - 1.0.6-3
 - Remove spring-context-support dep
 
 * Mon 21 Sep 2020 wangyue <wangyue92@huawei.com> - 1.0.6-2
